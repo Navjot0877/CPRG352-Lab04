@@ -17,13 +17,17 @@ public class NoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String title = "";
+        String contents = "";
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
 // to read files
         BufferedReader br = new BufferedReader(new FileReader(new File(path)));
-        
-        String title = br.readLine();
-        String content = br.readLine();
+         title = br.readLine() ;
+        String line;
+        while ((line = br.readLine()) != null){
+         contents = line + contents;
+        }
+        String content = contents.replace("<br>", "\r\n");
         
         br.close();
         
